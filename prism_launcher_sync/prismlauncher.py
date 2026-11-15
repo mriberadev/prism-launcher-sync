@@ -1,9 +1,9 @@
 import os
-from pathlib import Path
+import shutil
 from datetime import datetime
+from pathlib import Path
 
 import colorlog
-import shutil
 
 from prism_launcher_sync import config
 from prism_launcher_sync.base import BaseFile
@@ -12,11 +12,11 @@ if not config.ZIPFILES_DIR.exists():
     config.ZIPFILES_DIR.mkdir()
 
 
-class InstanceError(Exception):
+class MinecraftInstanceError(Exception):
     pass
 
 
-class Instance(BaseFile):
+class MinecraftInstance(BaseFile):
 
     def __init__(
             self,
@@ -27,7 +27,6 @@ class Instance(BaseFile):
             self.path = Path(self.path)
             savefile_dir = list(Path(self.path / "minecraft" / "saves").iterdir())[0]
             self.dt_modified = datetime.fromtimestamp(savefile_dir.stat().st_mtime).astimezone()
-
 
     def export_zip(self) -> str:
         logger = colorlog.getLogger(__name__)
@@ -60,4 +59,4 @@ class Instance(BaseFile):
             )
 
         except (AttributeError, FileNotFoundError) as e:
-            raise InstanceError("Failed to zip instance") from e
+            raise MinecraftInstanceError("Failed to zip instance") from e

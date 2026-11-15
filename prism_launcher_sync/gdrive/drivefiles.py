@@ -5,7 +5,7 @@ from datetime import datetime
 
 from prism_launcher_sync import config
 from prism_launcher_sync.base import BaseFile
-from prism_launcher_sync.prismlauncher import Instance
+from prism_launcher_sync.prismlauncher import MinecraftInstance
 from prism_launcher_sync.gdrive.apiwrapper import DriveApi, DriveApiError
 
 
@@ -214,7 +214,7 @@ class DriveFileManager:
         except DriveApiError as e:
             raise DriveFileManagerError("Failed to load Google Drive files") from e
 
-    def sync_instance(self, instance: Instance) -> None:
+    def sync_instance(self, instance: MinecraftInstance) -> None:
         try:
             if not self._root or not self._root.file_id:
                 raise AttributeError("Root dir not set")
@@ -253,7 +253,7 @@ class DriveFileManager:
         except (AttributeError, DriveFileError) as e:
             raise DriveFileManagerError(f"Failed to sync instance {instance.name}") from e
 
-    def last_backup_for_instance(self, instance: Instance) -> DriveFile:
+    def last_backup_for_instance(self, instance: MinecraftInstance) -> DriveFile:
         try:
             if not self._root or not self._root.file_id:
                 raise AttributeError("Root dir not set")
