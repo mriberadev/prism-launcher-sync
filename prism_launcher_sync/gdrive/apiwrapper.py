@@ -11,7 +11,7 @@ from googleapiclient.errors import HttpError
 from googleapiclient.http import MediaFileUpload, MediaIoBaseDownload
 
 from prism_launcher_sync import config
-from . import auth
+from prism_launcher_sync.gdrive import auth
 
 
 def make_progress_bar(progress: int | float, max_len: int = 50) -> str:

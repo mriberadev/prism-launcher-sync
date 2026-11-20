@@ -1,1 +1,1 @@
-from .classes import BaseFile, BaseFileError
+from prism_launcher_sync.base.classes import BaseFile, BaseFileError
